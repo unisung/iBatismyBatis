@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Member">
+
+<!-- map선언(java의 List) ,class="클래스명"  -->
+<resultMap id="MemberResult" class="vo.MemberVO">
+ <result property="id" column="id"/>
+ <result property="name" column="name"/>
+</resultMap>
+
+<insert id="insert" parameterClass="vo.MemberVO">
+ insert into member3(id,password,name)
+ values(#id#,#password#,#name#)
+</insert>
+
+<select id="selectAll" resultMap="MemberResult">
+ 	select id,name from member3 order by id
+</select>
+
+<delete id="delete" parameterClass="String">
+  delete from member3 where id=#id#
+</delete>
+
+<select id="selectInfo" parameterClass="String" resultClass="vo.MemberVO">
+ select * from member3 where id=#id#
+</select>
+
+<select id="selectPass" parameterClass="String" resultClass="String">
+ select password from member3 where id=#id#
+</select>
+
+<update id="updateMemberInfo" parameterClass="vo.MemberVO">
+ update member3 
+    set name=#name#, 
+        password=#password# 
+  where id=#id#
+
+</update>
+</sqlMap>
+

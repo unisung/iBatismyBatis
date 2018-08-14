@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Emp">
+<resultMap type="Emp" id="EmpResult">
+	<result property="eno" column="eno"/>
+	<result property="ename" column="ename"/>
+	<result property="job" column="job"/>
+	<result property="manager" column="manager"/>
+	<result property="hiredate" column="hiredate"/>
+	<result property="salary" column="salary"/>
+	<result property="commission" column="commission"/>
+	<result property="mname" column="mname"/>
+	<result property="dname" column="dname"/>
+</resultMap>
+
+<resultMap type="Dept" id="DeptResult">
+	<result property="no" column="no"/>
+	<result property="dname" column="dname"/>
+	<result property="loc" column="loc"/>
+</resultMap>
+
+<!-- 여러건 추출 -->
+<select id="selectAll" resultMap="EmpResult">
+ select * from emp1 order by eno
+</select>
+
+<select id="selectEmpInfo" parameterType="int" resultType="Emp">
+ select a.eno eno,c.dname dname, a.ename ename, a.manager manager,
+       b.ename mname, a.hiredate hiredate, a.salary salary, 
+       a.dno dno, a.commission commission 
+  from emp1 a, 
+       emp1 b, 
+       dept c
+ where a.manager=b.eno
+   and a.dno = c.no
+   and a.eno =#{id}
+</select>
+
+<select id="selectManageList" resultMap="EmpResult">
+   select eno, ename 
+  from emp1 
+ where eno in (select distinct manager from emp1)
+ order by eno
+</select>
+
+<select id="selectDeptList" resultMap="DeptResult">
+ select no, dname, loc from dept order by no
+</select>
+
+<select id="selectPrivs" parameterType="String"  resultType="int">
+ select count(*) from privs where password=#{password}
+</select>
+
+<update id="updateEmp" parameterType="Emp">
+ update emp1 
+    set ename=#{ename}, 
+        manager=#{manager},
+        dno=#{dno},
+        salary=#{salary},
+        commission=#{commission}
+  where eno=#{eno}
+</update>
+
+<delete id="deleteEmp" parameterType="int">
+ delete from emp1 where eno=#{empno}
+</delete>
+</mapper>
