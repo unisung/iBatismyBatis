@@ -99,5 +99,19 @@ select * from emp1 order by eno;
 select nvl(max(eno),0)+1 from emp1 ;
 
 
+select 'insert into emp1(' from dual
+union all
+select lower(column_name)||',' from cols where table_name='EMP1'
+union all
+select ') values(' from dual
+union all
+select '#{'||lower(column_name)||'},' from cols where table_name='EMP1'
+union all
+select ')' from dual;
+;
+
+
+select * from emp1;
+
 
 

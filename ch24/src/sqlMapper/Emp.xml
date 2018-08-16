@@ -78,6 +78,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  select distinct job from emp1 order by job
 </select>
 
+<insert id="insertEmp" parameterType="Emp">
+  insert into emp1 (eno, ename, job, manager, hiredate,
+                   salary, commission, dno)
+  values( #{eno}, #{ename}, #{job}, #{manager}, #{hiredate},
+                 #{salary}, #{commission}, #{dno})
+</insert>
 
-
+<select id="selectAllEmpHiredate" parameterType="java.sql.Date" 
+           resultMap="EmpResult">
+ select * from emp1 where hiredate >= #{hiredate}          
+</select>
 </mapper>

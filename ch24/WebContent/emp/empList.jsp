@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="dto.EmpDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.EmpDao"%>
@@ -8,14 +9,33 @@
 <head>
 <body>
 <%
+    String hdate = request.getParameter("hdate");
 	EmpDao dao = EmpDao.getInstance();
-    List<EmpDTO> list = dao.selectEmpAll();
-    request.setAttribute("list", list);
+	List<EmpDTO> list=null;
+	
+	if(hdate==null|| "".equals(hdate)){
+    	list = dao.selectEmpAll();
+   }else{
+	     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	     java.sql.Date date = 
+	    		 new java.sql.Date(sdf.parse(hdate).getTime());
 
+	    list = dao.selectEmpAll(date);
+		request.setAttribute("date", date);
+   }
+	request.setAttribute("list", list);
 %>
 <title>Insert title here</title>
 </head>
 <body>
+<fieldset>
+<legend>입사일자</legend>
+<form name="seach">
+<input type="date" name="hdate" value="${date}">
+<input type="submit" value="확인"><p>
+<span>해당 날짜 이후의 사원을 조회합니다.</span>
+</form>
+</fieldset>
 <c:if test="${not empty list}">
 <table border=1>
 <tr>

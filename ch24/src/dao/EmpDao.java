@@ -1,6 +1,7 @@
 package dao;
 
 import java.io.Reader;
+import java.sql.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -53,8 +54,7 @@ public class EmpDao implements Empservice{
 
 	@Override
 	public int insertEmp(EmpDTO emp) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.insert("insertEmp", emp);
 	}
 
 	@Override
@@ -89,6 +89,10 @@ public class EmpDao implements Empservice{
 	@Override
 	public List<EmpDTO> selectJobList() throws Exception {
 		return session.selectList("selectJobList");
+	}
+	@Override
+	public List<EmpDTO> selectEmpAll(Date hdate) throws Exception {
+		return session.selectList("selectAllEmpHiredate",hdate);
 	}
 
 }
