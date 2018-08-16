@@ -91,3 +91,13 @@ end;
 
 select * from emp1_history;
 
+
+
+select * from emp1 order by eno;
+
+
+select nvl(max(eno),0)+1 from emp1 ;
+
+
+
+

@@ -67,4 +67,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <delete id="deleteEmp" parameterType="int">
  delete from emp1 where eno=#{empno}
 </delete>
+
+<!-- 신입사원 번호 발번 -->
+<select id="newEmpNo" resultType="int">
+ select nvl(max(eno),0)+1 from emp1
+</select>
+
+<!-- job 리스트  -->
+<select id="selectJobList"  resultMap="EmpResult">
+ select distinct job from emp1 order by job
+</select>
+
+
+
 </mapper>

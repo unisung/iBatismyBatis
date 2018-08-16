@@ -14,6 +14,7 @@ public interface Empservice {
 	List<EmpDTO> selectManagerList() throws Exception;
 	List<DeptDTO> selectDeptList() throws Exception;
 	int userCheck(String password) throws Exception;
-	
+	int newEmpNo() throws Exception;
+	List<EmpDTO> selectJobList() throws Exception;
 
 }

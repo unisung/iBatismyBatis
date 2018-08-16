@@ -82,5 +82,13 @@ public class EmpDao implements Empservice{
 	public int userCheck(String password) throws Exception {
 		return session.selectOne("selectPrivs",password);
 	}
+	@Override
+	public int newEmpNo() throws Exception {
+	    return session.selectOne("newEmpNo");
+	}
+	@Override
+	public List<EmpDTO> selectJobList() throws Exception {
+		return session.selectList("selectJobList");
+	}
 
 }
