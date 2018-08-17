@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+ var httpRequest;
+ function getXMLHttpRequest(){
+	 if(window.ActiveXObject){
+		 return new ActiveXObject("Msxml2.XMLHTTP");
+	 }else if(window.XMLHttpRequest){
+		 return new XMLHttpRequest();
+	 }else{
+		 return null;
+	 }
+ }
+ 
+ /* url경로 가 매개변수로 넘어옴 */
+ function load(url){
+	 //xmlhttpRequest객체생성
+	 httpRequest = getXMLHttpRequest();/* Ajax Request객체를 생성 */
+	 //상태변경시 호출되는 함수(callback) 설정
+	 httpRequest.onreadystatechange=view;
+	 //전송방식 설정
+	 httpRequest.open('get',url,true);/* 보내는 방식:get, 보낼경로url, true이면 async(비동기) */
+ 	 //전송
+	 httpRequest.send(null);
+ }
+ function view(){
+	 alert('httpRequest.readyState'+httpRequest.readyState);
+	 alert(httpRequest.status);
+	/*  if(httpRequest.readyState==4){
+		 if(httpRequest.status==200){
+			 alert(httpRequest.responseText);
+		 }else{
+			alert('실패:'+httpRequest.readyState);
+		 }
+	 } */
+ }
+</script>
+</head>
+<body>
+<input type="button" value="simple.txt" onclick="load('simple.txt')">
+</body>
+</html>

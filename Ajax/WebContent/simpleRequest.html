@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./js/createXMLHttpRequest.js"></script>
+<script>
+var xmlhttp;
+
+function startRequest(){
+	xmlhttp = getXMLHttpRequest();
+	xmlhttp.onreadystatechange=handlestateChage;
+	xmlhttp.open('get',"simpleResponse.xml",true);
+	xmlhttp.send(null);
+}
+function handlestateChage(){
+	alert(xmlhttp.readyState);
+	if(xmlhttp.readyState==4){
+		if(xmlhttp.status==200){
+			alert("the server replied with:"+xmlhttp.responseText);
+		}
+	}
+}
+function openSendStatus(){
+	var xmlHttp = getXMLHttpRequest();
+	if(xmlHttp!=null){
+		document.getElementById("rcvData").innerHTML = "XMLHttpRequest가 생성되었습니다.";
+	}else{
+		document.getElementById("rcvData").innerHTML ='지원할수 없는 브라우저입니다.';
+	}
+}
+</script>
+</head>
+<body>
+<div id="btnarea">
+<input type="button" id="btnclick" name='btnclick'
+                 value="XmlHttpRequest 생성" onclick='openSendStatus()'>
+</div>
+<div id="datashow">
+  <div id="rcvData"></div>
+</div>
+  <form>
+   <input type="button" value="start Basic Request" onclick="startRequest()">
+  </form>
+</body>
+</html>
