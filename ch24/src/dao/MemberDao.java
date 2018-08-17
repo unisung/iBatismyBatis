@@ -66,7 +66,7 @@ public class MemberDao implements MemberService{
 
 	@Override
 	public List<MemberVO> getMemberList() throws Exception {
-	    return session.selectList("selectAll");
+	    return session.selectList("Member.selectAll");
 	}
 
 	@Override

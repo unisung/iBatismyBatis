@@ -7,6 +7,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <html>
 <head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('tr:even').css('backgroundColor','#f9f9f9');
+	$('tr:odd').css('backgroundColor','#9f9f9f');
+	$('tr:first').css('backgroundColor','#000').css('color','#fff');
+});
+</script>
+</head>
 <body>
 <%
     String hdate = request.getParameter("hdate");
