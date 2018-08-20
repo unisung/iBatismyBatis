@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="../js/createXMLHttpRequest.js"></script>
+<script>
+function chk(){
+	var params = "name="+document.forms[0].name.value;
+	sendRequest("hello.jsp",params,callback,"get");//hello.jsp?name="홍길동"
+}
+
+function callback(){
+	if(httpRequest.readyState==4){//응답완료
+		if(httpRequest.status==200){//정상 OK
+			var text1 = httpRequest.responseText;
+		     alert("결과:"+httpRequest.responseText);
+		    var start = text1.indexOf('<body>');
+		    var end = text1.indexOf('</body>');
+		    var text2 = text1.substring((start+6),end);
+		        log(text2);
+		        alert(text2);
+		}
+	}
+}
+</script>
+<title>Insert title here</title>
+</head>
+<body>
+<form action="">
+ 이름:<input type="text" name="name"><p>
+ <input type="button" value="확인" onclick="chk()">
+</form>
+<div id="console">
+</div>
+</body>
+</html>

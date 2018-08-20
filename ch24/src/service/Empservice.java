@@ -8,6 +8,7 @@ import dto.EmpDTO;
 public interface Empservice {
 	List<EmpDTO> selectEmpAll() throws Exception;
 	List<EmpDTO> selectEmpAll(Date hdate) throws Exception;
+	List<String> selectEmpNames() throws Exception;
 	EmpDTO selectEmp(int empno) throws Exception;
 	EmpDTO selectEmpInfo(int empno) throws Exception;
 	int insertEmp(EmpDTO emp) throws Exception;
@@ -18,6 +19,8 @@ public interface Empservice {
 	int userCheck(String password) throws Exception;
 	int newEmpNo() throws Exception;
 	List<EmpDTO> selectJobList() throws Exception;
+	List<EmpDTO> selectEmp(String name) throws Exception;
+	
 	
 
 }

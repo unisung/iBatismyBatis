@@ -94,5 +94,13 @@ public class EmpDao implements Empservice{
 	public List<EmpDTO> selectEmpAll(Date hdate) throws Exception {
 		return session.selectList("selectAllEmpHiredate",hdate);
 	}
+	@Override
+	public List<String> selectEmpNames() throws Exception {
+		return session.selectList("selectAllNames");
+	}
+	@Override
+	public List<EmpDTO> selectEmp(String name) throws Exception {
+		return session.selectList("selectEmpOne", name);
+	}
 
 }

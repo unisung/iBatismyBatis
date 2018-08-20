@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script>
+function chk(){
+	sendRequest("temp.jsp",'null',callback,'get');
+}
+function callback(){
+ var temp = document.getElementById("temp");
+ var max = document.getElementById("max");
+  if(httpRequest.readyState==4){
+	  if(httpRequest.status==200){
+		  var tempTxt = httpRequest.responseText;
+		    temp.innerHTML = tempTxt;
+		  //"9.8 ,12.2 ,24.7 ,23.7 ,23.1
+		  var arrTemp = tempTxt.split(",");//문자열로 나뉘어진 값을
+		  var arrFlt = new Array(arrTemp.length);
+		  for(var i=0;i<arrTemp.length;i++){
+			  arrFlt[i] = parseFloat(arrTemp[i]);//parseFloat()으로 숫자화
+		  }
+		  var maxV =0;//최고값을 저장하는 변수를 선언하고 최소값을 저장
+		  for(var i=0;i<arrFlt.length;i++){
+			  if(maxV<arrFlt[i]) maxV=arrFlt[i];
+		  }
+		  max.innerHTML=maxV;
+	  }
+  }
+}
+</script>
+</head>
+<body>
+온도:<span id="temp"></span><p>
+최고온도:<span id="max"></span><p>
+<input type="button" value="온도보기" onclick="chk()">
+</body>
+</html>

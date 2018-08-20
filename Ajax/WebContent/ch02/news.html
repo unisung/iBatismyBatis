@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../js/createXMLHttpRequest.js"></script>
+<script>
+function news(){
+	var url = 'http://www.choongang.co.kr/html/sub01_01.php';
+	var params ='null';
+	 sendRequest('news.jsp','null',callback,'get');  
+/* 	  sendRequest(url,params,callback,'get');   */
+}
+function callback(){
+	var news = document.getElementById('newList');
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			news.innerHTML = httpRequest.responseText;
+		}
+	}
+}
+</script>
+</head>
+<body>
+<input type="button" value="뉴스보기" onclick="news()">
+<div id="newList"></div>
+</body>
+</html>

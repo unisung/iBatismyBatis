@@ -89,4 +89,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
            resultMap="EmpResult">
  select * from emp1 where hiredate >= #{hiredate}          
 </select>
+
+<select id="selectAllNames" resultType="String">
+ select ename from emp1 order by ename
+</select>
+
+<select id="selectEmpOne" resultMap="EmpResult">
+ select * from emp1 where ename like #{ename}
+</select>
 </mapper>

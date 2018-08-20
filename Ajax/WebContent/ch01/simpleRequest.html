@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<html><head><meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="./js/createXMLHttpRequest.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script type="text/javascript" src="../js/createXMLHttpRequest.js"></script>
 <script>
 var xmlhttp;
 
@@ -14,13 +13,32 @@ function startRequest(){
 	xmlhttp.send(null);
 }
 function handlestateChage(){
-	alert(xmlhttp.readyState);
+	//alert(xmlhttp.readyState);
 	if(xmlhttp.readyState==4){
 		if(xmlhttp.status==200){
-			alert("the server replied with:"+xmlhttp.responseText);
+			//alert("the server replied with:"+xmlhttp.responseText);
+			parseResult(xmlhttp.responseText);
 		}
 	}
 }
+function parseResult(xml){
+	 alert(xml);
+	/* xml객체로 변환 */
+	var xmlDoc = $.parseXML(xml);
+	alert(xmlDoc);
+	
+	$(xmlDoc).find('고객').each(function(index){
+		var output='';
+		output+='<table border=1><tr>';
+		output+='<th>이름</th><td>'+$(this).find('이름').text()+"</td>";
+		output+='<th>나이</th><td>'+$(this).find('나이').text()+"</td>";
+		output+='</tr></table>';
+		
+		alert(output);
+		document.getElementById("rcvData2").innerHTML+=output;
+	});
+}
+
 function openSendStatus(){
 	var xmlHttp = getXMLHttpRequest();
 	if(xmlHttp!=null){
@@ -29,6 +47,7 @@ function openSendStatus(){
 		document.getElementById("rcvData").innerHTML ='지원할수 없는 브라우저입니다.';
 	}
 }
+
 </script>
 </head>
 <body>
@@ -42,5 +61,8 @@ function openSendStatus(){
   <form>
    <input type="button" value="start Basic Request" onclick="startRequest()">
   </form>
+  <div id="datashow2">
+  <div id="rcvData2"></div>
+  </div>
 </body>
 </html>

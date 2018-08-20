@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script>
+var checkFirst=false;
+var lastKeyword='';/* 마지막 검색할 키원드*/
+var loopSendKeyword=false;//사용자가 제시어를 선택했는지 유무
+ function start(){
+	 if(checkFirst==false){
+		 setTimeout("sendKeyword()",500);/*500(0.5초)밀리초 후에 실행하라 */
+		 loopSendKeyword=true;
+	 }
+	 checkFirst=true;
+ }
+ function sendKeyword(){
+	 if(loopSendKeyword==false) return;/* start()전에 실행 금지 */
+	 var keyword = document.search.keyword.value;
+	 if(keyword==''){
+		 lastKeyword='';
+		 hide('suggest');/* 선택자 'suggest'를 숨김 */
+	 }else if(keyword!=lastKeyword){
+		 lastKeyword=keyword;
+		 if(keyword!=''){
+		/* 	 var params='keyword='+keyword; */
+ 			 var params='keyword='+encodeURIComponent(keyword); 
+			 sendRequest("suggest.jsp",params,displayResult,'POST');
+		 }else{
+			 hide('suggest');
+		 }
+	 }
+	 setTimeout("sendKeyword()",500);
+ }//sendKeyword()메소드 끝.
+
+function displayResult(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			var resultText = httpRequest.responseText;
+			var result = resultText.split('|');//6|자바, 자바 프로그래밍,...,result[0]='6',result[1]='자바, 자바 프로그래밍,...,'
+			var count = parseInt(result[0]);//숫자형으로 바꿈 parseInt(문자열)
+			var keywordList =null;
+			if(count>0){
+				
+				keywordList = result[1].split(',');
+				
+				var html='';
+				for(var i=0;i<keywordList.length;i++){
+					html+="<a href=\"javascript:select('"+keywordList[i]+"')\">"
+					                       +keywordList[i]+"</a><br>";
+				}
+				var listView = document.getElementById('suggestList');
+				listView.innerHTML=html;
+			    show('suggest');//보이기	
+				}else{
+					hide('suggest');
+				}
+			}else{
+				alert("에러발생:"+httpRequest.status);
+			}
+			
+		}	 
+ }
+ 
+ function select(selectedKeyword){
+	 document.search.keyword.value=selectedKeyword;
+	 loopSendKeyword=false;//loopSendKeyword 값이 false면 sendKeyword()함수를 호출하지 않음
+	 checkFirst=false;//startSuggest() 한번 호출되면 true
+	 hide('suggest');
+ }
+ function show(elementId){
+	 var element = document.getElementById(elementId);
+	 if(element){
+		 element.style.display='';//요소의 style.displaye=''; 요소 보기익
+	 }
+ }
+ function hide(elementId){
+	 var element = document.getElementById(elementId);
+	 if(element){
+		 element.style.display='none';//요소의 style.displaye='none'; 요소 감추기
+	 }
+ }
+</script>
+</head>
+<body>
+<form action="" name="search">
+<!-- onkeydown이벤트: 출력이될수 있는 키를 눌렀을 때 발생하는 이벤트 -->
+  <input type="text" name="keyword" id="keyword" onkeydown="start()">
+  <input type="button" value="검색">
+  <div id="suggest" style="display:;position:absolute; left:0px;top:30px;">
+   <div id="suggestList"></div>
+</form>
+</body>
+</html>
