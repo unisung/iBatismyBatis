@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script>
+$(function(){
+	$('#cal').on("click",function(){
+		$.ajax({
+		type:"get", //전송방식
+		url:"calc2.jsp", //요청 url
+		data:{   //전송 데이타
+			v1:$('#v1').val(),
+			v2:$('#v2').val(),
+			op:$('#op').val()
+		},
+		dataType:"json",//응답한 객체의 타입- javascriptObject명명{속성:값}
+		success:function(responseData,status,xhr){
+			$('#result').text(responseData.v1
+					          +responseData.op
+					          +responseData.v2
+					          +"="
+					          +responseData.result);//{v1:값,v2:값,result:값}
+		},//onreadyState=4 & httpRequeststatus =200
+		error:function(xhr,status,error){
+			$('#result').text(error);
+		}////onreadyState=4 & httpRequeststatus !=200
+		});	
+	});// on(이벤트명,콜백함수);
+});
+</script>
+</head>
+<body>
+값1:<input type="text" name="v1" id="v1"><br>
+값2:<input type="text" name="v2" id="v2"><br>
+op:<select name="op" id="op">
+	<option value='sum'>+</option>
+	<option value='minus'>-</option>
+	<option value='mul'>*</option>
+	<option value='div'>/</option>
+</select>
+<button id="cal">계산</button>
+<div id="result"></div>
+</body>
+</html>

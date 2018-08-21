@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script>
+function info(){
+	sendRequest("book.xml",null,bookView,"get");
+}
+function bookView(){
+	if(httpRequest.readyState==4){//응답객체와 전송완료
+		if(httpRequest.status==200){//정상
+			var xmlDoc = httpRequest.responseXML;//xml형식의 데이타 responseXML
+			var bookList = xmlDoc.getElementsByTagName("book");//<book>
+			var msg="책의 갯수:" +bookList.length+"권\n";
+			for(var i=0;i<bookList.length;i++){
+				var book = bookList.item(i);//리스트에서 i번째 item구하기item(i)
+				var title = book.getElementsByTagName("title")
+				            .item(0).firstChild.nodeValue;//해당 node의 text는 nodeValue
+				var author = book.getElementsByTagName("author")
+				            .item(0).firstChild.nodeValue;//해당 node의 text는 nodeValue
+				msg +=title+"("+author+")\n";
+			}
+			alert(msg);
+			console.log("메시지보기",msg);
+		}
+	}
+}
+</script>
+</head>
+<!-- 태그의 속성으로 이벤트 메소드 호출 onload -->
+<body onload="info()">
+alert책 정보 보기
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+   var http;
+   function createHttpRequest(){
+	   xhttp = new XMLHttpRequest();
+   }
+   function mySend(){
+	   createHttpRequest();
+	   xhttp.onreadystatechange=callFunction;
+/* 	   xhttp.open('get',"http://localhost:8387/Ajax/ch06/jsp/cross.jsp",true); */
+ 	   xhttp.open('get',"http://localhost:8091/Ajax_ch01/jsp/cross.jsp",true); 
+	   xhttp.send(null);
+   }
+ function callFunction(){
+	 if(xhttp.readyState==4){
+		 if(xhttp.status==200){
+			 var responseData = xhttp.responseText;
+			 alert(responseData);
+			 document.getElementById('result').innerHTML=responseData;
+		 }else{
+			 document.getElementById('result').innerHTML="<b>오류발생</b>";
+		 }
+	 }
+ }
+</script>
+</head>
+<body>
+<h3>CORS 파일 테스트</h3>
+<button onclick="mySend()">CORS파일 수신</button>
+<div id="result"></div>
+</body>
+</html>

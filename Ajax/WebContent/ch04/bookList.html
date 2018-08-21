@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script>
+var xmlDoc = null;
+var xslDoc = null;
+function loadBooks(){
+	sendRequest('book.xml',null,loadedBooksXML,'get');
+}
+function loadedBooksXML(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			xmlDoc = httpRequest.responseXML;
+			sendRequest('book.xsl','null',loadedBooksXSL,'get');
+		}
+	}
+}
+function loadedBooksXSL(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){
+			xslDoc = httpRequest.responseXML;
+			doXSLT();
+		}
+	}
+}
+function doXSLT(){
+	if(xmlDoc==null || xslDoc==null) return;
+	var bookList = document.getElementById("bookList");
+	if(window.ActiveXObject){//IE
+		bookList.innerHTML = xmlDoc.transformNode(xslDoc);
+	}else{//IE가 아닌 경우
+		var xsltProc = new XSLTProcessor();
+		xsltProc.importStylesheet(xslDoc);
+		var fragment = xsltProc.transformToFragment(xmlDoc,document);
+		bookList.appendChild(fragment);
+	}
+}
+</script>
+<script>
+/* 윈도위 페이지가 열릴때 실행하는 메소드 */
+window.onload =function(){
+	loadBooks();
+}
+</script>
+</head>
+<body>
+<h1>신규 책 목록</h1>
+<div id="bookList"></div>
+</body>
+</html>

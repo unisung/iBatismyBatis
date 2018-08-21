@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- DOM요소를 동적으로 생성 -->
+<script>
+var count=0;
+function appendItem(){
+	count++;
+	var newItem = document.createElement("div"); // createElement(DOM명)- 요소 생성
+	newItem.setAttribute("id","item_"+count);//<div 속성(id=item_1)> - setAttribute(속성,값)
+	var html = "새로운 아이템["+count+"]<input "
+	          +" type='button' value='삭제' onclick='removeItem("+count+")'>";
+	newItem.innerHTML = html;//요소 추가 innerHTML
+	var itemList = document.getElementById("itemList");
+	itemList.appendChild(newItem);//요소내에 자식요소로 DOM객체 추가 - appendChild(DOM);
+}
+function removeItem(idCount){
+	var item = document.getElementById("item_"+idCount);
+	/* DOM요소를 삭제시는 부모노드의 removeChild(노드명)으로 삭제  */
+	item.parentNode.removeChild(item);
+}
+</script>
+</head>
+<body>
+<input type="button" value="추가" onclick="appendItem()"><p>
+<div id="itemList"></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script src="../js/Member_json.js"></script>
+<script>
+window.onload=function(){
+	var mem = new Member('kk','길동','900082110000');
+	log('현재나이');
+	log(mem.toString()+"나이:"+mem.getAge());
+	mem.setValue('aa','꺽정','910821100000');
+	log('변경후');
+	log(mem.toString()+"나이:"+mem.getAge());
+}
+</script>
+</head>
+<body>
+<div id="console"></div>
+</body>
+</html>

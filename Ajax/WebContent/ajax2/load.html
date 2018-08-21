@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>데이터 가져오기</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script>/* $(document).ready(); */
+ $(function(){
+	$('button').click(function(){
+		$('#container').load('resource.jsp');//resource.jsp의 내용을 현재 페이지로 가져옴.
+	}); //jquery의 이벤트 리스너 $(선택자).click();//클릭시 이벤트 처리 
+ });
+</script>
+</head>
+<body>
+<button>데이터 가져오기</button>
+<div id="container"></div>
+</body>
+</html>

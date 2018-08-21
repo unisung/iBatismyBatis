@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/createXMLHttpRequest.js"></script>
+<script src="../js/Member.js"></script>
+<script>
+window.onload = function(){
+	var mem = new Member('kk','홍길동','91010110000');//2000년 이후 3,4
+	log('현재 이름 나이');
+	log(mem.toString()+'나이:'+mem.getAge());
+	mem.setValue('aa','임꺽정','81010120000');
+	log('변경후');
+	log(mem.toString()+"나이:"+mem.getAge());
+}
+</script>
+</head>
+<body>
+<div id="console"></div>
+</body>
+</html>

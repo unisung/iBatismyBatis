@@ -6,10 +6,11 @@
 <script type="text/javascript" src="../js/createXMLHttpRequest.js"></script>
 <script>
 function news(){
-	var url = 'http://www.choongang.co.kr/html/sub01_01.php';
-	var params ='null';
-	 sendRequest('news.jsp','null',callback,'get');  
-/* 	  sendRequest(url,params,callback,'get');   */
+	/* var url = 'http://www.choongang.co.kr/html/sub01_01.php';
+	var params ='null'; */
+	 /* sendRequest('news.jsp','null',callback,'get');   */
+ 	  sendRequest('news2.jsp','null',callback,'get');
+	 
 }
 function callback(){
 	var news = document.getElementById('newList');
