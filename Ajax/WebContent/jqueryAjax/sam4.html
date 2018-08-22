@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script>
+/* html화면이 만들어지는 시점에 이벤트 리스너를 미리 붙여놓음, 해당 DOM객체에 해당 이벤트 발생시 처리 */
+$(document).ready(function(){
+	$('#html').on("click",function(){//DOM객체에 이벤트 리스너 부착 $(선택자).on(이벤트,콜백함수);
+		var msg="";
+		var jqxhr = $.getJSON("test.json",function(data){//getJSON()함수에 의해 넘어온 data
+			msg +=data.one+"<br>";
+			msg +=data.two+"<br>";
+			msg +=data.three+"<br>";
+			$("#result").html(msg);
+		}).//외부 페이지 읽어오기 . cf .load()
+		done(function(){
+			console.log("success");
+		}). //$.getJSON().done() // 함수 chaining
+		fail(function(){
+			console.log("error");
+		}).
+		always(function(){
+			console.log("finished");
+		});
+	});//이벤트 리스너 부착 jquery
+});
+</script>
+</head>
+<body>
+<button id="html">요청</button>
+<div id="result"></div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script>
+$(document).ready(function(){
+	$('#cal').on('click',function(){
+		$.ajaxSetup({
+			url:'calc1.jsp', //요청 url
+			type:'get',//전송방식
+			dataType:'text'//응답 데이타 타입
+		});//open()
+		$.ajax({
+			data:{
+				v1:$('#v1').val(), /* jquery 값 얻기 val(), cf) 자바스크립트:vaule속성 */
+			    v2:$('#v2').val(),
+			    op:$('#op').val()
+			},
+			success:function(responseData,status,xhr){
+				$('#result').text(responseData);
+			}
+		});//complete
+	});
+});
+</script>
+</head>
+<body>
+<label>값1</label>
+<input type="text" name="v1" id="v1"><br>
+<label>값2</label>
+<input type="text" name="v2" id="v2"><br>
+<select name="op" id="op">
+<option value="sum">+</option>
+<option value="minus">-</option>
+<option value="mul">x</option>
+<option value="div">-</option>
+</select>
+<button id="cal">계산</button>
+<div id="result"></div>
+</body>
+</html>

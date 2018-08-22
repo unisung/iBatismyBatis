@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script>
+$(document).ready(function(){
+	$('#cal').on("click",function(){
+		var result="";
+		$(document).ajaxComplete(function(event,xhr,settings){
+			result+=settings.type+"<br>";
+			result+=xhr.status+"<br>";
+			result+=settings.url+"<br>";
+			result+=settings.dataType+'<br>';
+			result+=settings.async+"<br>";
+			$('#msg').html(result);//DOM요소에 html요소 추가 메소드 .html()
+		});
+		//$.ajax({type,url,data,dataType,success[,errors,complete]});
+		$.ajax({
+			type:"get", 
+			url:"calc1.jsp",
+			data:{
+				v1:$('#v1').val(),
+				v2:$('#v2').val(),
+				op:$('#op').val()
+			},//open(),send()
+			dataType:"text",//결과 값의 타입
+			success:function(responseData,status,xhr){
+				console.log("결과",responseData);
+				$('#result').html(responseData);//DOM요소에 text요소 추가 
+			},
+			error:function(xhr,status,errors){
+				console.log(errors);
+			},
+			complete:function(){
+				console.log("complete");
+			}/* onreadyState==4 */
+		});
+	});
+});
+</script>
+</head>
+<body>
+값1:<input type="text" name="v1" id="v1"><br>
+값2:<input type="text" name="v2" id="v2"><br>
+<select name="op" id="op">
+<option value="sum">+</option>
+<option value="minus">-</option>
+<option value="mul">x</option>
+<option value="div">/</option> 
+</select>
+<button id="cal">계산</button>
+<div id="result"></div>
+<div id="msg"></div>
+</body>
+</html>
